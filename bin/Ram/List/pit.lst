@@ -1,0 +1,279 @@
+###############################################################################
+#                                                                             #
+#                                                       03/May/2013  23:26:21 #
+# IAR ANSI C/C++ Compiler V6.30.4.23288/W32 EVALUATION for ARM                #
+# Copyright 1999-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Users\hp\Desktop\balance                              #
+#                    car\src\Sources\C\Component_C\pit.c                      #
+#    Command line =  "C:\Users\hp\Desktop\balance                             #
+#                    car\src\Sources\C\Component_C\pit.c" -D IAR -D           #
+#                    TWR_K60N512 -lCN "C:\Users\hp\Desktop\balance            #
+#                    car\bin\Ram\List\" -lB "C:\Users\hp\Desktop\balance      #
+#                    car\bin\Ram\List\" -o "C:\Users\hp\Desktop\balance       #
+#                    car\bin\Ram\Obj\" --no_cse --no_unroll --no_inline       #
+#                    --no_code_motion --no_tbaa --no_clustering               #
+#                    --no_scheduling --debug --endian=little --cpu=Cortex-M4  #
+#                    -e --fpu=None --dlib_config                              #
+#                    F:\iar\arm\INC\c\DLib_Config_Normal.h -I                 #
+#                    "C:\Users\hp\Desktop\balance car\src\Sources\H\" -I      #
+#                    "C:\Users\hp\Desktop\balance                             #
+#                    car\src\Sources\H\Component_H\" -I                       #
+#                    "C:\Users\hp\Desktop\balance                             #
+#                    car\src\Sources\H\Frame_H\" -Ol --use_c++_inline         #
+#    List file    =  C:\Users\hp\Desktop\balance car\bin\Ram\List\pit.lst     #
+#    Object file  =  C:\Users\hp\Desktop\balance car\bin\Ram\Obj\pit.o        #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Users\hp\Desktop\balance car\src\Sources\C\Component_C\pit.c
+      1          #include"pit.h"
+      2          
+      3          //==========================================================================
+      4          //函数名:     void hw_pit_init(uint8 pitno,uint32 timeout)
+      5          //功能:       配置pit定时器
+      6          //入口参数:   pitno:  表示pit通道号。
+      7          //                            0
+      8          //                            1
+      9          //                            2
+     10          //                            3
+     11          //            timeout:表示定时溢出开始递减的值
+     12          //            定时时间计算公式   定时=(timeout+1)/bus_clk
+     13          //出口参数:   无
+     14          //说明:       无       
+     15          //==========================================================================
+
+   \                                 In section .text, align 2, keep-with-next
+     16          void hw_pit_init(uint8 pitno,uint32 timeout)
+     17              {
+     18                SIM_SCGC6|=SIM_SCGC6_PIT_MASK;              //使能PIT时钟
+   \                     hw_pit_init:
+   \   00000000   0x....             LDR.N    R2,??DataTable2  ;; 0x4004803c
+   \   00000002   0x6812             LDR      R2,[R2, #+0]
+   \   00000004   0xF452 0x0200      ORRS     R2,R2,#0x800000
+   \   00000008   0x....             LDR.N    R3,??DataTable2  ;; 0x4004803c
+   \   0000000A   0x601A             STR      R2,[R3, #+0]
+     19                PIT_MCR&=~(PIT_MCR_MDIS_MASK);              //调试模式下禁止
+   \   0000000C   0x....             LDR.N    R2,??DataTable2_1  ;; 0x40037000
+   \   0000000E   0x6812             LDR      R2,[R2, #+0]
+   \   00000010   0xF032 0x0202      BICS     R2,R2,#0x2
+   \   00000014   0x....             LDR.N    R3,??DataTable2_1  ;; 0x40037000
+   \   00000016   0x601A             STR      R2,[R3, #+0]
+     20                PIT_MCR|=PIT_MCR_FRZ_MASK;                  //使能PIT模块时钟
+   \   00000018   0x....             LDR.N    R2,??DataTable2_1  ;; 0x40037000
+   \   0000001A   0x6812             LDR      R2,[R2, #+0]
+   \   0000001C   0xF052 0x0201      ORRS     R2,R2,#0x1
+   \   00000020   0x....             LDR.N    R3,??DataTable2_1  ;; 0x40037000
+   \   00000022   0x601A             STR      R2,[R3, #+0]
+     21                PIT_LDVAL(pitno)=timeout;                   //设置周期  1ms中断
+   \   00000024   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000026   0x0102             LSLS     R2,R0,#+4
+   \   00000028   0x....             LDR.N    R3,??DataTable2_2  ;; 0x40037100
+   \   0000002A   0x50D1             STR      R1,[R2, R3]
+     22                PIT_TCTRL(pitno)|=PIT_TCTRL_TEN_MASK;       //使能pit模块运行
+   \   0000002C   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   0000002E   0x....             LDR.N    R1,??DataTable2_2  ;; 0x40037100
+   \   00000030   0xEB11 0x1100      ADDS     R1,R1,R0, LSL #+4
+   \   00000034   0x6889             LDR      R1,[R1, #+8]
+   \   00000036   0xF051 0x0101      ORRS     R1,R1,#0x1
+   \   0000003A   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   0000003C   0x....             LDR.N    R2,??DataTable2_2  ;; 0x40037100
+   \   0000003E   0xEB12 0x1200      ADDS     R2,R2,R0, LSL #+4
+   \   00000042   0x6091             STR      R1,[R2, #+8]
+     23                PIT_TCTRL(pitno)&=~(PIT_TCTRL_TIE_MASK);    //关pit中断
+   \   00000044   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000046   0x....             LDR.N    R1,??DataTable2_2  ;; 0x40037100
+   \   00000048   0xEB11 0x1100      ADDS     R1,R1,R0, LSL #+4
+   \   0000004C   0x6889             LDR      R1,[R1, #+8]
+   \   0000004E   0xF031 0x0102      BICS     R1,R1,#0x2
+   \   00000052   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000054   0x....             LDR.N    R2,??DataTable2_2  ;; 0x40037100
+   \   00000056   0xEB12 0x1000      ADDS     R0,R2,R0, LSL #+4
+   \   0000005A   0x6081             STR      R1,[R0, #+8]
+     24              }
+   \   0000005C   0x4770             BX       LR               ;; return
+     25          
+     26          //==========================================================================
+     27          //函数名:    void enable_pit_interrupt(uint8 pitno)  
+     28          //功能:      开接收引脚的IRQ中断
+     29          //入口参数:  pitno: 表示pit通道号 
+     30          //                           0
+     31          //                           1
+     32          //                           2
+     33          //                           3
+     34          //出口参数:  无
+     35          //说明:      无                                                                                                     
+     36          //==========================================================================
+
+   \                                 In section .text, align 2, keep-with-next
+     37              void enable_pit_interrupt(uint8 pitno)
+     38              {
+   \                     enable_pit_interrupt:
+   \   00000000   0xB580             PUSH     {R7,LR}
+     39                PIT_TCTRL(pitno)|=(PIT_TCTRL_TIE_MASK); //开pit中断
+   \   00000002   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000004   0x....             LDR.N    R1,??DataTable2_2  ;; 0x40037100
+   \   00000006   0xEB11 0x1100      ADDS     R1,R1,R0, LSL #+4
+   \   0000000A   0x6889             LDR      R1,[R1, #+8]
+   \   0000000C   0xF051 0x0102      ORRS     R1,R1,#0x2
+   \   00000010   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000012   0x....             LDR.N    R2,??DataTable2_2  ;; 0x40037100
+   \   00000014   0xEB12 0x1200      ADDS     R2,R2,R0, LSL #+4
+   \   00000018   0x6091             STR      R1,[R2, #+8]
+     40                switch(pitno)
+   \   0000001A   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   0000001C   0x2800             CMP      R0,#+0
+   \   0000001E   0xD005             BEQ.N    ??enable_pit_interrupt_0
+   \   00000020   0x2802             CMP      R0,#+2
+   \   00000022   0xD00B             BEQ.N    ??enable_pit_interrupt_1
+   \   00000024   0xD306             BCC.N    ??enable_pit_interrupt_2
+   \   00000026   0x2803             CMP      R0,#+3
+   \   00000028   0xD00C             BEQ.N    ??enable_pit_interrupt_3
+   \   0000002A   0xE00E             B.N      ??enable_pit_interrupt_4
+     41                {
+     42                case 0:
+     43                  enable_irq(68);			      //开接收引脚的IRQ中断
+   \                     ??enable_pit_interrupt_0:
+   \   0000002C   0x2044             MOVS     R0,#+68
+   \   0000002E   0x.... 0x....      BL       enable_irq
+     44                  break;
+   \   00000032   0xE00A             B.N      ??enable_pit_interrupt_4
+     45                case 1:
+     46                  enable_irq(69);			      //开接收引脚的IRQ中断
+   \                     ??enable_pit_interrupt_2:
+   \   00000034   0x2045             MOVS     R0,#+69
+   \   00000036   0x.... 0x....      BL       enable_irq
+     47                  break;
+   \   0000003A   0xE006             B.N      ??enable_pit_interrupt_4
+     48                case 2:
+     49                  enable_irq(70);			      //开接收引脚的IRQ中断
+   \                     ??enable_pit_interrupt_1:
+   \   0000003C   0x2046             MOVS     R0,#+70
+   \   0000003E   0x.... 0x....      BL       enable_irq
+     50                  break;
+   \   00000042   0xE002             B.N      ??enable_pit_interrupt_4
+     51                case 3:
+     52                  enable_irq(71);			      //开接收引脚的IRQ中断
+   \                     ??enable_pit_interrupt_3:
+   \   00000044   0x2047             MOVS     R0,#+71
+   \   00000046   0x.... 0x....      BL       enable_irq
+     53                  break;
+     54                }
+     55              }
+   \                     ??enable_pit_interrupt_4:
+   \   0000004A   0xBD01             POP      {R0,PC}          ;; return
+     56          
+     57          //==========================================================================
+     58          //函数名:   void disable_pit_interrupt(uint8 pitno)
+     59          //功能:     开接收引脚的IRQ中断 
+     60          //入口参数: pitno: 表示pit通道号 
+     61          //                           0
+     62          //                           1
+     63          //                           2
+     64          //                           3
+     65          //出口参数: 无  
+     66          //说明:     无                                                                                                    
+     67          //==========================================================================
+
+   \                                 In section .text, align 2, keep-with-next
+     68              void disable_pit_interrupt(uint8 pitno)
+     69              {
+   \                     disable_pit_interrupt:
+   \   00000000   0xB580             PUSH     {R7,LR}
+     70                PIT_TCTRL(pitno)&=~(PIT_TCTRL_TIE_MASK);//关pit中断
+   \   00000002   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000004   0x....             LDR.N    R1,??DataTable2_2  ;; 0x40037100
+   \   00000006   0xEB11 0x1100      ADDS     R1,R1,R0, LSL #+4
+   \   0000000A   0x6889             LDR      R1,[R1, #+8]
+   \   0000000C   0xF031 0x0102      BICS     R1,R1,#0x2
+   \   00000010   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000012   0x....             LDR.N    R2,??DataTable2_2  ;; 0x40037100
+   \   00000014   0xEB12 0x1200      ADDS     R2,R2,R0, LSL #+4
+   \   00000018   0x6091             STR      R1,[R2, #+8]
+     71                switch(pitno)
+   \   0000001A   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   0000001C   0x2800             CMP      R0,#+0
+   \   0000001E   0xD005             BEQ.N    ??disable_pit_interrupt_0
+   \   00000020   0x2802             CMP      R0,#+2
+   \   00000022   0xD00B             BEQ.N    ??disable_pit_interrupt_1
+   \   00000024   0xD306             BCC.N    ??disable_pit_interrupt_2
+   \   00000026   0x2803             CMP      R0,#+3
+   \   00000028   0xD00C             BEQ.N    ??disable_pit_interrupt_3
+   \   0000002A   0xE00E             B.N      ??disable_pit_interrupt_4
+     72                {
+     73                case 0:
+     74                  disable_irq(68);	              //关接收引脚的IRQ中断
+   \                     ??disable_pit_interrupt_0:
+   \   0000002C   0x2044             MOVS     R0,#+68
+   \   0000002E   0x.... 0x....      BL       disable_irq
+     75                  break;
+   \   00000032   0xE00A             B.N      ??disable_pit_interrupt_4
+     76                case 1:
+     77                  disable_irq(69);		      //关接收引脚的IRQ中断
+   \                     ??disable_pit_interrupt_2:
+   \   00000034   0x2045             MOVS     R0,#+69
+   \   00000036   0x.... 0x....      BL       disable_irq
+     78                  break;
+   \   0000003A   0xE006             B.N      ??disable_pit_interrupt_4
+     79                case 2:
+     80                  disable_irq(70);		      //关接收引脚的IRQ中断
+   \                     ??disable_pit_interrupt_1:
+   \   0000003C   0x2046             MOVS     R0,#+70
+   \   0000003E   0x.... 0x....      BL       disable_irq
+     81                  break;
+   \   00000042   0xE002             B.N      ??disable_pit_interrupt_4
+     82                case 3:
+     83                  disable_irq(71);		      //关接收引脚的IRQ中断
+   \                     ??disable_pit_interrupt_3:
+   \   00000044   0x2047             MOVS     R0,#+71
+   \   00000046   0x.... 0x....      BL       disable_irq
+     84                  break;
+     85                }
+     86              }
+   \                     ??disable_pit_interrupt_4:
+   \   0000004A   0xBD01             POP      {R0,PC}          ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2:
+   \   00000000   0x4004803C         DC32     0x4004803c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_1:
+   \   00000000   0x40037000         DC32     0x40037000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_2:
+   \   00000000   0x40037100         DC32     0x40037100
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+        8  disable_pit_interrupt
+             8 -> disable_irq
+        8  enable_pit_interrupt
+             8 -> enable_irq
+        0  hw_pit_init
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable2
+       4  ??DataTable2_1
+       4  ??DataTable2_2
+      76  disable_pit_interrupt
+      76  enable_pit_interrupt
+      94  hw_pit_init
+
+ 
+ 258 bytes in section .text
+ 
+ 258 bytes of CODE memory
+
+Errors: none
+Warnings: none

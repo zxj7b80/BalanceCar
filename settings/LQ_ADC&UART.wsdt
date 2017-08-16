@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Workspace>
+  <ConfigDictionary>
+    
+  <CurrentConfigs><Project>LQ_ADC_UART/RAM</Project></CurrentConfigs></ConfigDictionary>
+  <Desktop>
+    <Static>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>243</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
+      </Workspace>
+      <Build>
+        
+        
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>915</ColumnWidth1><ColumnWidth2>244</ColumnWidth2><ColumnWidth3>61</ColumnWidth3></Build>
+    <Debug-Log><ColumnWidth0>24</ColumnWidth0><ColumnWidth1>1217</ColumnWidth1></Debug-Log></Static>
+    <Windows>
+      
+      
+    <Wnd0>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-27402-26125</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              
+            <NodeDict><ExpandedNode>LQ_ADC_UART</ExpandedNode><ExpandedNode>LQ_ADC_UART/Output</ExpandedNode><ExpandedNode>LQ_ADC_UART/Output/LQ_ADC_UART.out</ExpandedNode><ExpandedNode>LQ_ADC_UART/Project_Settings</ExpandedNode><ExpandedNode>LQ_ADC_UART/Sources</ExpandedNode><ExpandedNode>LQ_ADC_UART/Sources/C</ExpandedNode><ExpandedNode>LQ_ADC_UART/Sources/C/Component_C</ExpandedNode><ExpandedNode>LQ_ADC_UART/Sources/C/Frame_C</ExpandedNode><ExpandedNode>LQ_ADC_UART/Sources/H</ExpandedNode><ExpandedNode>LQ_ADC_UART/Sources/H/Component_H</ExpandedNode><ExpandedNode>LQ_ADC_UART/Sources/H/Frame_H</ExpandedNode></NodeDict></Session>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd0><Wnd1>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-32234-31971</Identity>
+            <TabName>Build</TabName>
+            <Factory>Build</Factory>
+            <Session/>
+          </Tab>
+        <Tab><Identity>TabID-27030-16494</Identity><TabName>Debug Log</TabName><Factory>Debug-Log</Factory><Session/></Tab></Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd1></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\src\Sources\C\main.c</Filename><XPos>0</XPos><YPos>296</YPos><SelStart>8589</SelStart><SelEnd>8589</SelEnd></Tab><ActiveTab>0</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\src\Sources\H\hw_adc.h</Filename><XPos>0</XPos><YPos>264</YPos><SelStart>7051</SelStart><SelEnd>7122</SelEnd></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-012e11e0><key>iaridepm.enu1</key></Toolbar-012e11e0></Sizes></Row0></Top><Left><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>547</Bottom><Right>334</Right><x>-2</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>156250</sizeHorzCX><sizeHorzCY>277778</sizeHorzCY><sizeVertCX>262500</sizeVertCX><sizeVertCY>762500</sizeVertCY></Rect></Wnd0></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>128</Bottom><Right>1282</Right><x>-2</x><y>-2</y><xscreen>1284</xscreen><yscreen>130</yscreen><sizeHorzCX>1003125</sizeHorzCX><sizeHorzCY>180556</sizeHorzCY><sizeVertCX>156250</sizeVertCX><sizeVertCY>277778</sizeVertCY></Rect></Wnd1></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+  </Desktop>
+</Workspace>
+
+

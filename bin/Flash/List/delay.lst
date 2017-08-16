@@ -1,0 +1,144 @@
+###############################################################################
+#                                                                             #
+#                                                       03/Jul/2013  01:12:41 #
+# IAR ANSI C/C++ Compiler V6.30.4.23288/W32 EVALUATION for ARM                #
+# Copyright 1999-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  D:\balance car_0607直立速度方向\src\Sources\C\Component_ #
+#                    C\delay.c                                                #
+#    Command line =  "D:\balance car_0607直立速度方向\src\Sources\C\Component #
+#                    _C\delay.c" -D IAR -D TWR_K60N512 -lCN "D:\balance       #
+#                    car_0607直立速度方向\bin\Flash\List\" -lB "D:\balance    #
+#                    car_0607直立速度方向\bin\Flash\List\" -o "D:\balance     #
+#                    car_0607直立速度方向\bin\Flash\Obj\" --no_cse            #
+#                    --no_unroll --no_inline --no_code_motion --no_tbaa       #
+#                    --no_clustering --no_scheduling --debug --endian=little  #
+#                    --cpu=Cortex-M4 -e --fpu=None --dlib_config              #
+#                    E:\IAREW6.3\arm\INC\c\DLib_Config_Normal.h -I            #
+#                    "D:\balance car_0607直立速度方向\src\Sources\H\" -I      #
+#                    "D:\balance car_0607直立速度方向\src\Sources\H\Component #
+#                    _H\" -I "D:\balance car_0607直立速度方向\src\Sources\H\F #
+#                    rame_H\" -Ol --use_c++_inline                            #
+#    List file    =  D:\balance car_0607直立速度方向\bin\Flash\List\delay.lst #
+#    Object file  =  D:\balance car_0607直立速度方向\bin\Flash\Obj\delay.o    #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\balance car_0607直立速度方向\src\Sources\C\Component_C\delay.c
+      1          #include"delay.h"
+      2          
+
+   \                                 In section .text, align 2, keep-with-next
+      3          void delay(uint32 a) 
+      4          {
+      5            uint32 i;
+      6            for(i=0;i<a;i++);
+   \                     delay:
+   \   00000000   0x2100             MOVS     R1,#+0
+   \   00000002   0xE000             B.N      ??delay_0
+   \                     ??delay_1:
+   \   00000004   0x1C49             ADDS     R1,R1,#+1
+   \                     ??delay_0:
+   \   00000006   0x4281             CMP      R1,R0
+   \   00000008   0xD3FC             BCC.N    ??delay_1
+      7          }
+   \   0000000A   0x4770             BX       LR               ;; return
+      8          
+
+   \                                 In section .text, align 2, keep-with-next
+      9          void delay_ms(uint32 count_val)
+     10          {
+     11            /* Make sure the clock to the LPTMR is enabled */
+     12            SIM_SCGC5|=SIM_SCGC5_LPTIMER_MASK; 
+   \                     delay_ms:
+   \   00000000   0x....             LDR.N    R1,??DataTable0  ;; 0x40048038
+   \   00000002   0x6809             LDR      R1,[R1, #+0]
+   \   00000004   0xF051 0x0101      ORRS     R1,R1,#0x1
+   \   00000008   0x....             LDR.N    R2,??DataTable0  ;; 0x40048038
+   \   0000000A   0x6011             STR      R1,[R2, #+0]
+     13            
+     14            /* Set the compare value to the number of ms to delay */
+     15            LPTMR0_CMR = count_val; 
+   \   0000000C   0x....             LDR.N    R1,??DataTable0_1  ;; 0x40040008
+   \   0000000E   0x6008             STR      R0,[R1, #+0]
+     16            
+     17            /* Set up LPTMR to use 1kHz LPO with no prescaler as its clock source */
+     18            LPTMR0_PSR = LPTMR_PSR_PCS(1)|LPTMR_PSR_PBYP_MASK; 
+   \   00000010   0x....             LDR.N    R0,??DataTable0_2  ;; 0x40040004
+   \   00000012   0x2105             MOVS     R1,#+5
+   \   00000014   0x6001             STR      R1,[R0, #+0]
+     19            
+     20            /* Start the timer */
+     21            LPTMR0_CSR |= LPTMR_CSR_TEN_MASK; 
+   \   00000016   0x....             LDR.N    R0,??DataTable0_3  ;; 0x40040000
+   \   00000018   0x6800             LDR      R0,[R0, #+0]
+   \   0000001A   0xF050 0x0001      ORRS     R0,R0,#0x1
+   \   0000001E   0x....             LDR.N    R1,??DataTable0_3  ;; 0x40040000
+   \   00000020   0x6008             STR      R0,[R1, #+0]
+     22          
+     23            /* Wait for counter to reach compare value */
+     24            while (!(LPTMR0_CSR & LPTMR_CSR_TCF_MASK));
+   \                     ??delay_ms_0:
+   \   00000022   0x....             LDR.N    R0,??DataTable0_3  ;; 0x40040000
+   \   00000024   0x6800             LDR      R0,[R0, #+0]
+   \   00000026   0x0600             LSLS     R0,R0,#+24
+   \   00000028   0xD5FB             BPL.N    ??delay_ms_0
+     25            
+     26            /* Clear Timer Compare Flag */
+     27            LPTMR0_CSR &= ~LPTMR_CSR_TEN_MASK;
+   \   0000002A   0x....             LDR.N    R0,??DataTable0_3  ;; 0x40040000
+   \   0000002C   0x6800             LDR      R0,[R0, #+0]
+   \   0000002E   0x0840             LSRS     R0,R0,#+1
+   \   00000030   0x0040             LSLS     R0,R0,#+1
+   \   00000032   0x....             LDR.N    R1,??DataTable0_3  ;; 0x40040000
+   \   00000034   0x6008             STR      R0,[R1, #+0]
+     28            
+     29            return;
+   \   00000036   0x4770             BX       LR               ;; return
+     30          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable0:
+   \   00000000   0x40048038         DC32     0x40048038
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable0_1:
+   \   00000000   0x40040008         DC32     0x40040008
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable0_2:
+   \   00000000   0x40040004         DC32     0x40040004
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable0_3:
+   \   00000000   0x40040000         DC32     0x40040000
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+        0  delay
+        0  delay_ms
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable0
+       4  ??DataTable0_1
+       4  ??DataTable0_2
+       4  ??DataTable0_3
+      12  delay
+      56  delay_ms
+
+ 
+ 84 bytes in section .text
+ 
+ 84 bytes of CODE memory
+
+Errors: none
+Warnings: none

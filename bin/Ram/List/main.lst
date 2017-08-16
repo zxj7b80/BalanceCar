@@ -1,0 +1,324 @@
+###############################################################################
+#                                                                             #
+#                                                       05/May/2013  16:53:28 #
+# IAR ANSI C/C++ Compiler V6.30.4.23288/W32 EVALUATION for ARM                #
+# Copyright 1999-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Users\hp\Desktop\balance car\src\Sources\C\main.c     #
+#    Command line =  "C:\Users\hp\Desktop\balance car\src\Sources\C\main.c"   #
+#                    -D IAR -D TWR_K60N512 -lCN "C:\Users\hp\Desktop\balance  #
+#                    car\bin\Ram\List\" -lB "C:\Users\hp\Desktop\balance      #
+#                    car\bin\Ram\List\" -o "C:\Users\hp\Desktop\balance       #
+#                    car\bin\Ram\Obj\" --no_cse --no_unroll --no_inline       #
+#                    --no_code_motion --no_tbaa --no_clustering               #
+#                    --no_scheduling --debug --endian=little --cpu=Cortex-M4  #
+#                    -e --fpu=None --dlib_config                              #
+#                    F:\iar\arm\INC\c\DLib_Config_Normal.h -I                 #
+#                    "C:\Users\hp\Desktop\balance car\src\Sources\H\" -I      #
+#                    "C:\Users\hp\Desktop\balance                             #
+#                    car\src\Sources\H\Component_H\" -I                       #
+#                    "C:\Users\hp\Desktop\balance                             #
+#                    car\src\Sources\H\Frame_H\" -Ol --use_c++_inline         #
+#    List file    =  C:\Users\hp\Desktop\balance car\bin\Ram\List\main.lst    #
+#    Object file  =  C:\Users\hp\Desktop\balance car\bin\Ram\Obj\main.o       #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Users\hp\Desktop\balance car\src\Sources\C\main.c
+      1          //头文件
+      2          #include "includes.h"
+      3          void system_init();
+      4          void delay();
+      5          extern int gravity,gyro;
+      6          //全局变量声明
+      7          extern int periph_clk_khz;
+      8          extern float g_fCarAngle;
+
+   \                                 In section .bss, align 1
+      9          uint8 g_OverSlopeCnt=0;
+   \                     g_OverSlopeCnt:
+   \   00000000                      DS8 1
+     10          //主函数
+
+   \                                 In section .text, align 2, keep-with-next
+     11          void main()
+     12          {
+   \                     main:
+   \   00000000   0xB580             PUSH     {R7,LR}
+     13            system_init();
+   \   00000002   0x.... 0x....      BL       system_init
+     14          
+     15          /*  GetInputVoltageAverage(10000);
+     16             gravity= g_nInputVoltage[0];
+     17             gyro=g_nInputVoltage[1];
+     18             gyro_direction=g_nInputVoltage[4];
+     19          //   dir_left_offset= g_nInputVoltage[2];
+     20           //  dir_right_offset= g_nInputVoltage[3];*/
+     21            delay( 3000 );
+   \   00000006   0xF640 0x30B8      MOVW     R0,#+3000
+   \   0000000A   0x.... 0x....      BL       delay
+     22            gravity =hw_ad_ave(0,8,12,100); //ADC0 通道8 100 次(PTB0)
+   \   0000000E   0x2364             MOVS     R3,#+100
+   \   00000010   0x220C             MOVS     R2,#+12
+   \   00000012   0x2108             MOVS     R1,#+8
+   \   00000014   0x2000             MOVS     R0,#+0
+   \   00000016   0x.... 0x....      BL       hw_ad_ave
+   \   0000001A   0x....             LDR.N    R1,??DataTable1
+   \   0000001C   0x6008             STR      R0,[R1, #+0]
+     23            gyro =hw_ad_ave(0,9,12,100); //ADC0 通道9 100 次(PTB1)
+   \   0000001E   0x2364             MOVS     R3,#+100
+   \   00000020   0x220C             MOVS     R2,#+12
+   \   00000022   0x2109             MOVS     R1,#+9
+   \   00000024   0x2000             MOVS     R0,#+0
+   \   00000026   0x.... 0x....      BL       hw_ad_ave
+   \   0000002A   0x....             LDR.N    R1,??DataTable1_1
+   \   0000002C   0x6008             STR      R0,[R1, #+0]
+     24            
+     25            uart_sendnumber(UART3 ,  gravity );           //PTC16接串口模块的uart3_RX
+   \   0000002E   0x....             LDR.N    R0,??DataTable1
+   \   00000030   0x6801             LDR      R1,[R0, #+0]
+   \   00000032   0x....             LDR.N    R0,??DataTable1_2  ;; 0x4006d000
+   \   00000034   0x.... 0x....      BL       uart_sendnumber
+     26                                                          // PTC17接串口模块的uart3_TX  
+     27            uart_sendnumber(UART3 , gyro );  
+   \   00000038   0x....             LDR.N    R0,??DataTable1_1
+   \   0000003A   0x6801             LDR      R1,[R0, #+0]
+   \   0000003C   0x....             LDR.N    R0,??DataTable1_2  ;; 0x4006d000
+   \   0000003E   0x.... 0x....      BL       uart_sendnumber
+     28            
+     29            uart_send1 (UART3, '\r');
+   \   00000042   0x210D             MOVS     R1,#+13
+   \   00000044   0x....             LDR.N    R0,??DataTable1_2  ;; 0x4006d000
+   \   00000046   0x.... 0x....      BL       uart_send1
+     30            uart_send1 (UART3, '\n');
+   \   0000004A   0x210A             MOVS     R1,#+10
+   \   0000004C   0x....             LDR.N    R0,??DataTable1_2  ;; 0x4006d000
+   \   0000004E   0x.... 0x....      BL       uart_send1
+   \   00000052   0xE002             B.N      ??main_0
+     31            for(;;)                            //等待1ms中断
+     32            {
+     33              //倾倒停机
+     34                if(g_fCarAngle>=40/*前倾*/ ||g_fCarAngle<=-50/*后倾*/)
+     35                {
+     36                  if(g_OverSlopeCnt>3)
+     37                  {
+     38                   // g_switch=0; //关闭定时
+     39                    FTM_PWM_ChangeDuty( 0,0 , 0);      //通道0 PTC1 左
+     40                    FTM_PWM_ChangeDuty( 0,1 , 0);      //通道1 PTC2 右
+     41                  }
+     42                  else
+     43                  {
+     44                    g_OverSlopeCnt++;
+     45                  }
+     46                }
+     47                else
+     48                {
+     49                  g_OverSlopeCnt=0;
+   \                     ??main_1:
+   \   00000054   0x....             LDR.N    R0,??DataTable1_3
+   \   00000056   0x2100             MOVS     R1,#+0
+   \   00000058   0x7001             STRB     R1,[R0, #+0]
+     50                }
+   \                     ??main_0:
+   \   0000005A   0x....             LDR.N    R0,??DataTable1_4
+   \   0000005C   0x6800             LDR      R0,[R0, #+0]
+   \   0000005E   0x....             LDR.N    R1,??DataTable1_5  ;; 0x42200000
+   \   00000060   0x.... 0x....      BL       __aeabi_cfrcmple
+   \   00000064   0xD905             BLS.N    ??main_2
+   \   00000066   0x....             LDR.N    R0,??DataTable1_4
+   \   00000068   0x6800             LDR      R0,[R0, #+0]
+   \   0000006A   0x....             LDR.N    R1,??DataTable1_6  ;; 0xc247ffff
+   \   0000006C   0x.... 0x....      BL       __aeabi_cfcmple
+   \   00000070   0xD2F0             BCS.N    ??main_1
+   \                     ??main_2:
+   \   00000072   0x....             LDR.N    R0,??DataTable1_3
+   \   00000074   0x7800             LDRB     R0,[R0, #+0]
+   \   00000076   0x2804             CMP      R0,#+4
+   \   00000078   0xD30A             BCC.N    ??main_3
+   \   0000007A   0x2200             MOVS     R2,#+0
+   \   0000007C   0x2100             MOVS     R1,#+0
+   \   0000007E   0x2000             MOVS     R0,#+0
+   \   00000080   0x.... 0x....      BL       FTM_PWM_ChangeDuty
+   \   00000084   0x2200             MOVS     R2,#+0
+   \   00000086   0x2101             MOVS     R1,#+1
+   \   00000088   0x2000             MOVS     R0,#+0
+   \   0000008A   0x.... 0x....      BL       FTM_PWM_ChangeDuty
+   \   0000008E   0xE7E4             B.N      ??main_0
+   \                     ??main_3:
+   \   00000090   0x....             LDR.N    R0,??DataTable1_3
+   \   00000092   0x7800             LDRB     R0,[R0, #+0]
+   \   00000094   0x1C40             ADDS     R0,R0,#+1
+   \   00000096   0x....             LDR.N    R1,??DataTable1_3
+   \   00000098   0x7008             STRB     R0,[R1, #+0]
+   \   0000009A   0xE7DE             B.N      ??main_0
+     51                  //key_scan(); //键盘扫描函数
+     52                //===========================================================
+     53            }
+     54            
+     55          }
+
+   \                                 In section .text, align 4, keep-with-next
+     56          void system_init()
+     57          {
+   \                     system_init:
+   \   00000000   0xB580             PUSH     {R7,LR}
+     58            DisableInterrupts;                          //关闭总中断
+   \   00000002   0xB672             CPSID i         
+     59            
+     60           // gpio_init (GPIO_MemMapPtr port, int index, int dir,int data);
+     61            
+     62            uart_init (UART3,periph_clk_khz,9600);      //串口初始化
+   \   00000004   0xF44F 0x5216      MOV      R2,#+9600
+   \   00000008   0x....             LDR.N    R0,??DataTable1_7
+   \   0000000A   0x6801             LDR      R1,[R0, #+0]
+   \   0000000C   0x....             LDR.N    R0,??DataTable1_2  ;; 0x4006d000
+   \   0000000E   0x.... 0x....      BL       uart_init
+     63            
+     64            FTM_PWM_Init(0,10000);                      //pwm频率为10kHz
+   \   00000012   0xF242 0x7110      MOVW     R1,#+10000
+   \   00000016   0x2000             MOVS     R0,#+0
+   \   00000018   0x.... 0x....      BL       FTM_PWM_Init
+     65           //  FTM_PWM_Open(0,2,4000);
+     66            Motor_init();                               //电机初始化 
+   \   0000001C   0x.... 0x....      BL       Motor_init
+     67            
+     68            hw_adc_init(0);                             //ADC0初始化
+   \   00000020   0x2000             MOVS     R0,#+0
+   \   00000022   0x.... 0x....      BL       hw_adc_init
+     69            
+     70           // hw_i2c_init(I2C1);                        //i2c初始化
+     71            enableuartreint(UART3,UART0irq);	      //开串口3接收中断
+   \   00000026   0x212D             MOVS     R1,#+45
+   \   00000028   0x....             LDR.N    R0,??DataTable1_2  ;; 0x4006d000
+   \   0000002A   0x.... 0x....      BL       enableuartreint
+     72           
+     73            hw_pit_init(0,10000);                       //配置pit定时器,1ms中断
+   \   0000002E   0xF242 0x7110      MOVW     R1,#+10000
+   \   00000032   0x2000             MOVS     R0,#+0
+   \   00000034   0x.... 0x....      BL       hw_pit_init
+     74            
+     75            enable_pit_interrupt(0);                    //开pit中断0通道
+   \   00000038   0x2000             MOVS     R0,#+0
+   \   0000003A   0x.... 0x....      BL       enable_pit_interrupt
+     76            
+     77            FTM_QUAD_init();                            //正交解码测速初始化
+   \   0000003E   0x.... 0x....      BL       FTM_QUAD_init
+     78            
+     79            EnableInterrupts;                           //开启总中断
+   \   00000042   0xB662             CPSIE i         
+     80            
+     81          }
+   \   00000044   0xBD01             POP      {R0,PC}          ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1:
+   \   00000000   0x........         DC32     gravity
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_1:
+   \   00000000   0x........         DC32     gyro
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_2:
+   \   00000000   0x4006D000         DC32     0x4006d000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_3:
+   \   00000000   0x........         DC32     g_OverSlopeCnt
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_4:
+   \   00000000   0x........         DC32     g_fCarAngle
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_5:
+   \   00000000   0x42200000         DC32     0x42200000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_6:
+   \   00000000   0xC247FFFF         DC32     0xc247ffff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_7:
+   \   00000000   0x........         DC32     periph_clk_khz
+     82          
+     83          
+     84          
+     85          
+     86          
+     87          
+     88          
+     89          
+     90          
+     91          
+     92          
+     93          
+     94          
+     95                                      
+     96                                                    
+     97          
+     98          
+     99          
+    100          
+    101          
+    102          
+    103          
+    104          
+    105          
+    106          
+    107          
+    108          
+    109          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+        8  main
+             8 -> FTM_PWM_ChangeDuty
+             8 -> __aeabi_cfcmple
+             8 -> __aeabi_cfrcmple
+             8 -> delay
+             8 -> hw_ad_ave
+             8 -> system_init
+             8 -> uart_send1
+             8 -> uart_sendnumber
+        8  system_init
+             8 -> FTM_PWM_Init
+             8 -> FTM_QUAD_init
+             8 -> Motor_init
+             8 -> enable_pit_interrupt
+             8 -> enableuartreint
+             8 -> hw_adc_init
+             8 -> hw_pit_init
+             8 -> uart_init
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable1
+       4  ??DataTable1_1
+       4  ??DataTable1_2
+       4  ??DataTable1_3
+       4  ??DataTable1_4
+       4  ??DataTable1_5
+       4  ??DataTable1_6
+       4  ??DataTable1_7
+       1  g_OverSlopeCnt
+     156  main
+      70  system_init
+
+ 
+   1 byte  in section .bss
+ 258 bytes in section .text
+ 
+ 258 bytes of CODE memory
+   1 byte  of DATA memory
+
+Errors: none
+Warnings: none

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Workspace>
+  <ConfigDictionary>
+    
+  <CurrentConfigs><Project>light/FLASH</Project></CurrentConfigs></ConfigDictionary>
+  <Desktop>
+    <Static>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>175</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
+      </Workspace>
+      <Build>
+        
+        
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>915</ColumnWidth1><ColumnWidth2>244</ColumnWidth2><ColumnWidth3>61</ColumnWidth3></Build>
+    <TerminalIO/></Static>
+    <Windows>
+      
+      
+    <Wnd2>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-24016-6506</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              
+            <NodeDict><ExpandedNode>light</ExpandedNode><ExpandedNode>light/Output</ExpandedNode><ExpandedNode>light/Project_Settings</ExpandedNode><ExpandedNode>light/Sources</ExpandedNode><ExpandedNode>light/Sources/C</ExpandedNode><ExpandedNode>light/Sources/H</ExpandedNode><ExpandedNode>light/Sources/H/Frame_H</ExpandedNode></NodeDict></Session>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd2><Wnd3>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-28783-6826</Identity>
+            <TabName>Build</TabName>
+            <Factory>Build</Factory>
+            <Session/>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd3></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\src\Sources\C\main.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>1063</SelStart><SelEnd>1063</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\src\Sources\H\includes.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>604</SelStart><SelEnd>604</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\02_uart_loop\src\Project_Settings\Startup_Code\crt0.s</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>219</SelStart><SelEnd>219</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\src\Project_Settings\Startup_Code\crt0.s</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>219</SelStart><SelEnd>219</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\src\Sources\H\Frame_H\common.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>469</SelStart><SelEnd>469</SelEnd></Tab><ActiveTab>4</ActiveTab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-012ebd20><key>iaridepm.enu1</key></Toolbar-012ebd20></Sizes></Row0><Row1><Sizes/></Row1></Top><Left><Row0><Sizes><Wnd2><Rect><Top>-2</Top><Left>-2</Left><Bottom>758</Bottom><Right>249</Right><x>-2</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>156250</sizeHorzCX><sizeHorzCY>218818</sizeHorzCY><sizeVertCX>196094</sizeVertCX><sizeVertCY>831510</sizeVertCY></Rect></Wnd2></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd3><Rect><Top>-2</Top><Left>-2</Left><Bottom>111</Bottom><Right>1282</Right><x>-2</x><y>-2</y><xscreen>1284</xscreen><yscreen>113</yscreen><sizeHorzCX>1003125</sizeHorzCX><sizeHorzCY>123632</sizeHorzCY><sizeVertCX>156250</sizeVertCX><sizeVertCY>218818</sizeVertCY></Rect></Wnd3></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+  </Desktop>
+</Workspace>
+
+
